@@ -45,15 +45,13 @@ h1 {
   transition: transform 0.2s ease;
 }
 
-/* YES BUTTON */
+/* YES */
 .yes {
   background: #ff2e63;
   color: white;
-  position: relative;
-  z-index: 2;
 }
 
-/* NO BUTTON */
+/* NO */
 .no {
   background: white;
   color: #ff2e63;
@@ -62,7 +60,6 @@ h1 {
   left: 55%;
   transform: translate(-50%, -50%);
   transition: left 0.2s ease, top 0.2s ease;
-  z-index: 2;
 }
 
 /* CELEBRATION */
@@ -86,7 +83,7 @@ h1 {
 <body>
 
 <div class="container">
-  <h1>Annu, tumne kya soch h fir, mutton khila rahi ho? 💖</h1>
+  <h1>Annu, tumne kya soch h fir? 💖</h1>
 
   <button class="btn yes" id="yesBtn">Yes</button>
   <button class="btn no" id="noBtn">No</button>
@@ -103,27 +100,25 @@ const yesBtn = document.getElementById("yesBtn");
 const noTexts = [
   "No 😜",
   "Soch lo 😂",
-  "Tum na bol rhi ho 😏",
-  "Ek bar fir se soch lo 🏃‍♂️"
+  "Ruko na 😏",
+  "Ek baar soch lo 🏃‍♂️"
 ];
 
 const yesTexts = [
   "Yes ❤️",
   "Sach m? 🥺",
   "Pakka? 😳",
-  "Baad me na nhi bolna fir? 💖",
+  "Baad me mana nahi karna 💖",
   "Main jaanta hu 😌",
   "Tumne ha!! kaha 🎉"
 ];
 
 let yesIndex = 0;
 
-/* NO BUTTON MOVES AWAY */
+/* NO BUTTON MOVE */
 function moveNo() {
-  const padding = 120;
-
-  const x = Math.random() * (window.innerWidth - padding);
-  const y = Math.random() * (window.innerHeight - padding);
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 120);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
@@ -131,8 +126,8 @@ function moveNo() {
   noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
 }
 
-/* YES CLICK SEQUENCE */
-function yesStep() {
+/* YES CLICK SEQUENCE (FIXED) */
+function handleYes() {
   if (yesIndex < yesTexts.length) {
     yesBtn.innerText = yesTexts[yesIndex];
     yesBtn.style.transform = `scale(${1 + yesIndex * 0.12})`;
@@ -143,16 +138,9 @@ function yesStep() {
   }
 }
 
-/* EVENTS */
-
-// NO button (runs away)
-noBtn.addEventListener("mouseenter", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("click", moveNo);
-
-// YES button (clickable steps)
-yesBtn.addEventListener("click", yesStep);
-yesBtn.addEventListener("touchstart", yesStep);
+/* EVENTS (ONLY POINTERDOWN = MOBILE + PC FIX) */
+yesBtn.addEventListener("pointerdown", handleYes);
+noBtn.addEventListener("pointerdown", moveNo);
 </script>
 
 </body>
