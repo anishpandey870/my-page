@@ -26,13 +26,13 @@ body {
 .container {
   text-align: center;
   color: white;
-  position: relative;
   width: 100%;
+  padding: 20px;
 }
 
 h1 {
   margin-bottom: 30px;
-  padding: 0 10px;
+  font-size: 22px;
 }
 
 .btn {
@@ -111,16 +111,16 @@ const yesTexts = [
   "Yes ❤️",
   "Sach m? 🥺",
   "Pakka? 😳",
-  "baad me na nhi bolna fir? 💖",
+  "Baad me na nhi bolna fir? 💖",
   "Main jaanta hu 😌",
   "Tumne ha!! kaha 🎉"
 ];
 
-let yesClicks = 0;
+let yesIndex = 0;
 
-/* NO BUTTON MOVES */
+/* NO BUTTON MOVES AWAY */
 function moveNo() {
-  const padding = 100;
+  const padding = 120;
 
   const x = Math.random() * (window.innerWidth - padding);
   const y = Math.random() * (window.innerHeight - padding);
@@ -131,43 +131,28 @@ function moveNo() {
   noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
 }
 
-/* YES TEXT CHANGE (MOBILE SAFE) */
-function yesHover() {
-  yesBtn.innerText =
-    yesTexts[Math.floor(Math.random() * yesTexts.length)];
-}
-
-/* YES CLICK */
-function yesClicked() {
-  yesClicks++;
-
-  // small delay so hover text is visible first on mobile
-  setTimeout(() => {
-    yesBtn.innerText = "Yayyy ❤️";
-    yesBtn.style.transform = `scale(${1 + yesClicks * 0.2})`;
-  }, 120);
-
-  if (yesClicks >= 2) {
-    setTimeout(() => {
-      document.querySelector(".container").style.display = "none";
-      document.getElementById("celebration").style.display = "flex";
-    }, 250);
+/* YES CLICK SEQUENCE */
+function yesStep() {
+  if (yesIndex < yesTexts.length) {
+    yesBtn.innerText = yesTexts[yesIndex];
+    yesBtn.style.transform = `scale(${1 + yesIndex * 0.12})`;
+    yesIndex++;
+  } else {
+    document.querySelector(".container").style.display = "none";
+    document.getElementById("celebration").style.display = "flex";
   }
 }
 
-/* EVENTS (FULL FIXED FOR MOBILE + DESKTOP) */
+/* EVENTS */
 
-// NO button
+// NO button (runs away)
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("click", moveNo);
 
-// YES button
-yesBtn.addEventListener("mouseenter", yesHover);
-yesBtn.addEventListener("touchstart", () => {
-  yesHover(); // mobile instant text change
-});
-yesBtn.addEventListener("click", yesClicked);
+// YES button (clickable steps)
+yesBtn.addEventListener("click", yesStep);
+yesBtn.addEventListener("touchstart", yesStep);
 </script>
 
 </body>
