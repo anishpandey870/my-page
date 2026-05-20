@@ -13,7 +13,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+
+  /* 💖 Background Image */
+  background: 
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1950&q=80");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   font-family: Arial;
 }
 
@@ -112,7 +121,7 @@ const yesTexts = [
   "You sure? 😳",
   "Final answer? 💖",
   "M janata hu 😌",
-  "tumne,YES!! kaha 🎉"
+  "Tumne YES!! kaha 🎉"
 ];
 
 let yesClicks = 0;
