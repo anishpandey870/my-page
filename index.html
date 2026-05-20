@@ -43,6 +43,11 @@ h1 {
   background: #ff2e63;
   color: white;
   position: relative;
+  z-index: 2;
+}
+
+.yes:hover {
+  transform: scale(1.1) rotate(-2deg);
 }
 
 /* NO BUTTON */
@@ -54,6 +59,7 @@ h1 {
   left: 55%;
   transform: translate(-50%, -50%);
   transition: left 0.2s ease, top 0.2s ease;
+  z-index: 2;
 }
 
 /* CELEBRATION */
@@ -106,43 +112,50 @@ const yesTexts = [
   "You sure? 😳",
   "Final answer? 💖",
   "M janata hu 😌",
-  "YES!! 🎉"
+  "tumne,YES!! kaha 🎉"
 ];
 
-/* NO BUTTON MOVES AWAY (NO HOVER TEXT CHANGE) */
+let yesClicks = 0;
+
+/* NO BUTTON MOVES AWAY */
 function moveNo() {
-  const padding = 120;
+  const padding = 100;
 
   const x = Math.random() * (window.innerWidth - padding);
   const y = Math.random() * (window.innerHeight - padding);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-}
 
-/* ONLY CLICK CHANGES TEXT FOR NO */
-function noClicked() {
   noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
-  moveNo();
 }
 
-/* ONLY CLICK CHANGES TEXT FOR YES */
-function yesClicked() {
+/* YES BUTTON FUN */
+function yesHover() {
   yesBtn.innerText = yesTexts[Math.floor(Math.random() * yesTexts.length)];
+}
 
-  setTimeout(() => {
+function yesClicked() {
+  yesClicks++;
+
+  yesBtn.innerText = "Yayyy ❤️";
+  yesBtn.style.transform = `scale(${1 + yesClicks * 0.2})`;
+
+  if (yesClicks >= 2) {
     document.querySelector(".container").style.display = "none";
     document.getElementById("celebration").style.display = "flex";
-  }, 500);
+  }
 }
 
 /* EVENTS */
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("click", noClicked);
+noBtn.addEventListener("click", moveNo);
 
+yesBtn.addEventListener("mouseenter", yesHover);
 yesBtn.addEventListener("click", yesClicked);
 </script>
 
 </body>
 </html>
+change this code
