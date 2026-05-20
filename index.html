@@ -14,15 +14,12 @@ body {
   justify-content: center;
   align-items: center;
 
-  /* 💖 Background Image */
-  background: 
+  background:
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
     url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1950&q=80");
 
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-
   font-family: Arial;
 }
 
@@ -35,6 +32,7 @@ body {
 
 h1 {
   margin-bottom: 30px;
+  padding: 0 10px;
 }
 
 .btn {
@@ -92,7 +90,7 @@ h1 {
 <body>
 
 <div class="container">
-  <h1> Annu, tumne kya soch h fir, mutton khila rahi ho? 💖</h1>
+  <h1>Annu, tumne kya soch h fir, mutton khila rahi ho? 💖</h1>
 
   <button class="btn yes" id="yesBtn">Yes</button>
   <button class="btn no" id="noBtn">No</button>
@@ -117,16 +115,16 @@ const yesTexts = [
   "Yes ❤️",
   "Sach m? 🥺",
   "Pakka? 😳",
-  "bad m na nhi bolna fir? 💖",
-  "M janata hu 😌",
+  "baad me na nhi bolna fir? 💖",
+  "Main jaanta hu 😌",
   "Tumne ha!! kaha 🎉"
 ];
 
 let yesClicks = 0;
 
-/* NO BUTTON MOVES AWAY */
+/* NO BUTTON MOVEMENT */
 function moveNo() {
-  const padding = 100;
+  const padding = 80;
 
   const x = Math.random() * (window.innerWidth - padding);
   const y = Math.random() * (window.innerHeight - padding);
@@ -137,11 +135,12 @@ function moveNo() {
   noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
 }
 
-/* YES BUTTON FUN */
+/* YES BUTTON TEXT CHANGE */
 function yesHover() {
   yesBtn.innerText = yesTexts[Math.floor(Math.random() * yesTexts.length)];
 }
 
+/* YES CLICK */
 function yesClicked() {
   yesClicks++;
 
@@ -154,12 +153,14 @@ function yesClicked() {
   }
 }
 
-/* EVENTS */
+/* EVENTS - FIXED FOR MOBILE + DESKTOP */
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("click", moveNo);
 
 yesBtn.addEventListener("mouseenter", yesHover);
+yesBtn.addEventListener("pointerenter", yesHover);
+yesBtn.addEventListener("touchstart", yesHover);
 yesBtn.addEventListener("click", yesClicked);
 </script>
 
