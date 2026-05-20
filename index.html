@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>💖 Love Page</title>
+<title>Love Page 💖</title>
 
 <style>
 body {
@@ -48,6 +48,7 @@ h1 {
   position: absolute;
   top: 60%;
   left: 55%;
+  transition: all 0.25s ease;
 }
 
 .celebration {
@@ -82,6 +83,15 @@ h1 {
 <script>
 const noBtn = document.getElementById("noBtn");
 
+const funnyTexts = [
+  "No 😜",
+  "Try again 😂",
+  "Catch me 🏃‍♂️",
+  "Nope 🚫",
+  "Too slow 😏",
+  "I’m moving 😆"
+];
+
 function moveBtn() {
   const maxX = window.innerWidth - 120;
   const maxY = window.innerHeight - 80;
@@ -91,10 +101,14 @@ function moveBtn() {
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
+  noBtn.innerText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
 }
 
-noBtn.addEventListener("mouseover", moveBtn);
+// triggers
+noBtn.addEventListener("mouseenter", moveBtn);
 noBtn.addEventListener("touchstart", moveBtn);
+noBtn.addEventListener("click", moveBtn);
 
 function yesClicked() {
   document.querySelector(".container").style.display = "none";
