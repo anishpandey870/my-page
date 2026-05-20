@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Love Game 💖</title>
+<title>Anish 💖</title>
 
 <style>
 body {
@@ -51,10 +51,6 @@ h1 {
   color: white;
   position: relative;
   z-index: 2;
-}
-
-.yes:hover {
-  transform: scale(1.1) rotate(-2deg);
 }
 
 /* NO BUTTON */
@@ -122,9 +118,9 @@ const yesTexts = [
 
 let yesClicks = 0;
 
-/* NO BUTTON MOVEMENT */
+/* NO BUTTON MOVES */
 function moveNo() {
-  const padding = 80;
+  const padding = 100;
 
   const x = Math.random() * (window.innerWidth - padding);
   const y = Math.random() * (window.innerHeight - padding);
@@ -135,32 +131,42 @@ function moveNo() {
   noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
 }
 
-/* YES BUTTON TEXT CHANGE */
+/* YES TEXT CHANGE (MOBILE SAFE) */
 function yesHover() {
-  yesBtn.innerText = yesTexts[Math.floor(Math.random() * yesTexts.length)];
+  yesBtn.innerText =
+    yesTexts[Math.floor(Math.random() * yesTexts.length)];
 }
 
 /* YES CLICK */
 function yesClicked() {
   yesClicks++;
 
-  yesBtn.innerText = "Yayyy ❤️";
-  yesBtn.style.transform = `scale(${1 + yesClicks * 0.2})`;
+  // small delay so hover text is visible first on mobile
+  setTimeout(() => {
+    yesBtn.innerText = "Yayyy ❤️";
+    yesBtn.style.transform = `scale(${1 + yesClicks * 0.2})`;
+  }, 120);
 
   if (yesClicks >= 2) {
-    document.querySelector(".container").style.display = "none";
-    document.getElementById("celebration").style.display = "flex";
+    setTimeout(() => {
+      document.querySelector(".container").style.display = "none";
+      document.getElementById("celebration").style.display = "flex";
+    }, 250);
   }
 }
 
-/* EVENTS - FIXED FOR MOBILE + DESKTOP */
+/* EVENTS (FULL FIXED FOR MOBILE + DESKTOP) */
+
+// NO button
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("click", moveNo);
 
+// YES button
 yesBtn.addEventListener("mouseenter", yesHover);
-yesBtn.addEventListener("pointerenter", yesHover);
-yesBtn.addEventListener("touchstart", yesHover);
+yesBtn.addEventListener("touchstart", () => {
+  yesHover(); // mobile instant text change
+});
 yesBtn.addEventListener("click", yesClicked);
 </script>
 
